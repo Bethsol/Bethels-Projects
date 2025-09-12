@@ -1,0 +1,46 @@
+-- 1. Average Investment per Deal
+-- Calculates the average investment for all successful deals.
+Avg_Investment_per_Deal = 
+VAR TotalInvestment = SUM('Shark Tank Dataset 3'[Total Deal Amount])
+VAR DealCount = COUNT('Shark Tank Dataset 3'[Got Deal])
+RETURN
+    DIVIDE(TotalInvestment, DealCount)
+
+-- 2. Number of Got Deals
+-- Counts the number of pitches that resulted in a deal.
+Got_Deals = 
+CALCULATE(
+    COUNT('Shark Tank Dataset 3'[Got Deal]),
+    FILTER(
+        'Shark Tank Dataset 3',
+        'Shark Tank Dataset 3'[Got Deal] = 1
+    )
+)
+
+-- 3. Deal Closed Rate
+-- Calculates the percentage of pitches that resulted in a successful deal.
+Deal_Closed_Rate = 
+VAR TotalPitches = COUNTROWS('Shark Tank Dataset 3')
+VAR DealsClosed = [Got_Deals]
+RETURN
+    DIVIDE(DealsClosed, TotalPitches)
+
+-- 4. Deals Per Shark (Calculated Table)
+-- Creates a new table that summarizes the number of deals for each shark.
+Deals_Per_Shark = 
+SUMMARIZE(
+    'Shark Tank Dataset 3',
+    'Shark Tank Dataset 3'[Shark Name],
+    "Deals Count", COUNTROWS('Shark Tank Dataset 3')
+)
+
+-- 5. Total All Shark Deals
+-- Counts the deals where all five sharks were involved.
+Total_All_Shark_Deals = 
+CALCULATE(
+    COUNTROWS('Shark Tank Dataset 3'),
+    FILTER(
+        'Shark Tank Dataset 3',
+        'Shark Tank Dataset 3'[Number of Sharks in Deal] = 5
+    )
+)

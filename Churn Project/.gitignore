@@ -1,0 +1,17 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+/venv/
+.env/
+
+# IDE files
+.vscode/
+
+# Operating System files
+.DS_Store
+
+# Saved models
+# If your model file is large, you might want to uncomment the line below.
+# model.pkl
